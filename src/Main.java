@@ -29,9 +29,9 @@ public class Main {
 
 		boolean isValidate = false;
 		if (formula != "")
-			isValidate = Operation.validator(formula, operations);
+			isValidate = execution.validator(formula, operations);
 		if (isValidate) {
-			Operation.prepareToOperate(formula);
+			execution.prepareToOperate(formula);
 		}
 	}
 }

@@ -13,7 +13,7 @@ public class Operation extends Connectives {
 		super(numberOfPrepositions);
 	}
 	public static final Character[] SimbolosPermitidos = {
-			'^', 'v', '→', '↔'
+			'^', 'v', '→', '↔', '~'
 	};
 	public static final Character[] Parenthesis = {
 			'(', ')'
@@ -121,6 +121,7 @@ public class Operation extends Connectives {
 
 	public static void prepareToOperate(String formula) {
 		String aux = "";
+		String index;
 
 		TypeOfOperation currentOperation = TypeOfOperation.isConnective;
 
@@ -128,29 +129,33 @@ public class Operation extends Connectives {
 			if (currentOperation == TypeOfOperation.isConjunction) {
 				System.out.println(aux);
 				boolean[] result = Connectives.conjunction(charArrayMap.get(aux), charArrayMap.get(f + ""));
-				String index = aux + "^" + f;
+				index = aux + "^" + f;
 				charArrayMap.put(index, result);
 			}
 
 			if (currentOperation == TypeOfOperation.isDisjunction) {
 				boolean[] result = Connectives.disjunction(charArrayMap.get(aux), charArrayMap.get(f + ""));
-				String index = aux + "v" + f;
+				index = aux + "v" + f;
 				charArrayMap.put(index, result);
 			}
 
 			if (currentOperation == TypeOfOperation.isConditional) {
 				boolean[] result = Connectives.conditional(charArrayMap.get(aux), charArrayMap.get(f + ""));
-				String index = aux + "→" + f;
+				index = aux + "→" + f;
 				charArrayMap.put(index, result);
 			}
 
 			if (currentOperation == TypeOfOperation.isBiconditional) {
 				boolean[] result = Connectives.biconditional(charArrayMap.get(aux), charArrayMap.get(f + ""));
-				String index = aux + "↔" + f;
+				index = aux + "↔" + f;
 				charArrayMap.put(index, result);
 			}
 
-			if (currentOperation == TypeOfOperation.isDenial) {}
+			if (currentOperation == TypeOfOperation.isDenial) {
+				boolean[] result = Connectives.denial(charArrayMap.get(f + ""));
+				index = "~"+f;
+				charArrayMap.put(index, result);
+			}
 
 			currentOperation = checkKindOfOperation(f);
 
