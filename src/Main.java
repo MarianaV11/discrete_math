@@ -12,7 +12,7 @@ public class Main {
 		System.out.print("Informe o número de proposições: ");
 		int numberOfPrepositions = scanner.nextInt();
 
-		Operation execution = new Operation (numberOfPrepositions);
+		Operation execution = new Operation(numberOfPrepositions);
 
 		System.out.print("Escolha os símbolos de suas proposições: ");
 		for (int i = 0; i < numberOfPrepositions; i++) {
@@ -23,15 +23,18 @@ public class Main {
 
 		scanner.nextLine();
 
-		System.out.print("Digite aqui sua fórmula: ");
-		String formula = scanner.nextLine();
-		formula = (formula.replaceAll("\\s", "")).toUpperCase();
+		// System.out.print("Digite aqui sua fórmula: ");
+		// String formula = scanner.nextLine();
+		// formula = (formula.replaceAll("\\s", "")).toUpperCase();
+		String formula = "(AVB)" + '→' + "(AV~B)" + '^' + "(AVB)" + 'V' + "(AVB)";
 
 		boolean isValidate = false;
 		if (formula != "")
 			isValidate = execution.validator(formula, operations);
 		if (isValidate) {
-			execution.prepareToOperate(formula);
+			String lastResult = execution.prepareToOperate(formula);
+			execution.tableAppearance();
+			execution.displayColumn(lastResult, formula);
 		}
 	}
 }
