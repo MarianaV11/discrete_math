@@ -135,7 +135,6 @@ public class Operation extends Connectives {
 		String index = "";
 		String lastResult = "";
 		boolean denial = false;
-		// boolean canOneByOne = true;
 
 		TypeOfOperation currentOperation = TypeOfOperation.isConnective;
 
@@ -224,7 +223,7 @@ public class Operation extends Connectives {
 			}
 
 		}
-		return "";
+		return index;
 	}
 
 	// Aids prepareToOperate by checking wictch operation has to do.
@@ -256,6 +255,21 @@ public class Operation extends Connectives {
 			}
 			System.out.println(row.toString().replaceAll(" \\| $", ""));
 		}
+	}
+
+	public static void displayColumn(String index, String formula) {
+		boolean[] arr = charArrayMap.get(index);
+
+		System.out.println();
+		System.out.println("---------- result column ----------");
+		System.out.println(formula);
+		for (var item : arr) {
+			System.out.println("| " + (item ? 'T' : 'F') + " |");
+		}
+	}
+
+	public static void displayColumn(String index) {
+		displayColumn(index, index);
 	}
 
 	public static void extractParenthesesExpressions(String input) {

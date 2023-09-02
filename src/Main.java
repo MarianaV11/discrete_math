@@ -34,7 +34,7 @@ public class Main {
 		if (isValidate) {
 			String lastResult = execution.prepareToOperate(formula);
 			execution.tableAppearance();
-			System.out.println(lastResult);
+			execution.displayColumn(lastResult, formula);
 		}
 	}
 }
