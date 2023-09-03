@@ -23,16 +23,15 @@ public class Main {
 
 		scanner.nextLine();
 
-		// System.out.print("Digite aqui sua fórmula: ");
-		// String formula = scanner.nextLine();
-		// formula = (formula.replaceAll("\\s", "")).toUpperCase();
-		String formula = "(AVB)" + '→' + "(AV~B)" + '^' + "(AVB)" + 'V' + "(AVB)";
+		 System.out.print("Digite aqui sua fórmula: ");
+		 String formula = scanner.nextLine();
+		 formula = (formula.replaceAll("\\s", "")).toUpperCase();
 
 		boolean isValidate = false;
 		if (formula != "")
 			isValidate = execution.validator(formula, operations);
 		if (isValidate) {
-			String lastResult = execution.prepareToOperate(formula);
+			String lastResult = execution.operate(formula);
 			execution.tableAppearance();
 			execution.displayColumn(lastResult, formula);
 		}

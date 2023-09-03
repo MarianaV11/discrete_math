@@ -3,13 +3,10 @@ package perform_operation;
 public class Connectives {
 	static protected int numberOfPrepositions;
 	static protected int numberInColumn;
-	static protected boolean[][] truthTable;
 
 	public Connectives(int numberOfPrepositions) {
 		Connectives.numberOfPrepositions = numberOfPrepositions;
 		Connectives.numberInColumn = (int) Math.pow(2, numberOfPrepositions);
-
-		truthTable = new boolean[numberOfPrepositions][numberInColumn];
 	}
 
 	public static boolean[] conjunction(boolean[] prepositionOne, boolean[] prepositionTwo) {

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 public class Operation extends Connectives {
 	public static Map<String, boolean[]> charArrayMap = new HashMap<>();
+	private static int formulaProgression = 0;
 
 	public Operation(int numberOfPrepositions) {
 		super(numberOfPrepositions);
@@ -17,14 +18,13 @@ public class Operation extends Connectives {
 	public static final Character[] SimbolosPermitidos = {
 			'^', 'v', '→', '↔', '~'
 	};
+
 	public static final Character[] Parenthesis = {
 			'(', ')'
 	};
 
-	private static int formulaProgression = 0;
-
 	public enum TypeOfOperation {
-		isConnective,
+		isNotConnective,
 		isConjunction,
 		isDisjunction,
 		isConditional,
@@ -114,7 +114,7 @@ public class Operation extends Connectives {
 		for (int i = numberOfPrepositions - 1; i >= 0; i--) {
 			boolean[] currentColumn = new boolean[numberInColumn];
 
-			int defineValidity = (numberOfPrepositions - i - 1) * 2;
+			int defineValidity = (int) Math.pow(2, numberOfPrepositions - i - 1);
 			if (defineValidity == 0)
 				defineValidity = 1;
 			boolean aux = false;
@@ -129,31 +129,30 @@ public class Operation extends Connectives {
 	}
 
 	// go through the string formula preparing and operating then
-	public static String prepareToOperate(String formula) {
+	public static String operate(String formula) {
 		String prev = "";
 		String actual = "";
 		String index = "";
 		String lastResult = "";
 		boolean denial = false;
 
-		TypeOfOperation currentOperation = TypeOfOperation.isConnective;
+		TypeOfOperation currentOperation = TypeOfOperation.isNotConnective;
 
 		char[] form = formula.toCharArray();
 
 		System.out.println("formula inicio:" + formula);
 
 		for (int i = 0; i < form.length; i++) {
-			System.out.println(currentOperation);
 			char f = form[i];
 			formulaProgression++;
 
 			if (f == '(') {
 				System.out.println("formula progression: " + formulaProgression);
 				String newFormula = removeCharacter(formula, formulaProgression);
-				String aux = prepareToOperate(newFormula);
+				String aux = operate(newFormula);
 				System.out.println("aux: " + aux);
 				System.out.println("index2: " + index);
-				if (currentOperation != TypeOfOperation.isConnective) {
+				if (currentOperation != TypeOfOperation.isNotConnective) {
 					actual = aux;
 					if (index != "")
 						prev = index;
@@ -169,8 +168,6 @@ public class Operation extends Connectives {
 			} else {
 				actual = f + "";
 			}
-
-			// System.out.println(f);
 
 			if (denial) {
 				boolean[] result = Connectives.denial(charArrayMap.get(actual));
@@ -222,6 +219,7 @@ public class Operation extends Connectives {
 				prev = index;
 			}
 
+			System.out.println(currentOperation);
 		}
 		return index;
 	}
@@ -238,7 +236,7 @@ public class Operation extends Connectives {
 			case '↔':
 				return TypeOfOperation.isBiconditional;
 		}
-		return TypeOfOperation.isConnective;
+		return TypeOfOperation.isNotConnective;
 	}
 
 	// display the table result
