@@ -264,6 +264,13 @@ public class Operation extends Connectives {
 		for (var item : arr) {
 			System.out.println("| " + (item ? 'T' : 'F') + " |");
 		}
+
+		if (tautology(arr))
+			System.out.println("É uma Tautologia");
+
+		if (contradiction(arr))
+			System.out.println("É uma Contradição");
+
 	}
 
 	public static void displayColumn(String index) {
@@ -290,6 +297,25 @@ public class Operation extends Connectives {
 			// Se a quantidade não for válida, retornar a string original
 			return input;
 		}
+	}
+
+	public static boolean tautology(boolean[] arr) {
+		for (boolean elemento : arr) {
+			if (!elemento) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	// Função que verifica se todas as posições do array são false
+	public static boolean contradiction(boolean[] arr) {
+		for (boolean elemento : arr) {
+			if (elemento) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
